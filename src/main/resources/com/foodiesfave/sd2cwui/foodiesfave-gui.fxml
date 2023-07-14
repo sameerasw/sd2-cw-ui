@@ -1,16 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.foodiesfave.sd2cwui.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox alignment="CENTER" prefHeight="634.0" prefWidth="961.0" spacing="20.0" style="-fx-background-color: #222222;" stylesheets="@../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.foodiesfave.sd2cwui.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Foodies Fave">
+         <font>
+            <Font name="Arial Bold" size="22.0" />
+         </font>
+      </Text>
+      <TabPane prefHeight="582.0" prefWidth="921.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab closable="false" text="Cashiers">
+            <content>
+                  <VBox style="-fx-border-width: 2px; -fx-border-color: #ffffff; -fx-border-radius: 0px 0px 20px 20px;">
+                     <children>
+                        <HBox prefHeight="449.0" prefWidth="917.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="467.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="12.0" style="-fx-background-color: #000000; -fx-background-radius: 20px;" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/cashier-1.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label fx:id="q1i0" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Label>
+                                          <Label fx:id="q1i1" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="60.0" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="12.0" style="-fx-background-color: #000000; -fx-background-radius: 20px;" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/cashier-2.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label fx:id="q2i0" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q2i1" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q2i2" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="79.0" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="12.0" style="-fx-background-color: #000000; -fx-background-radius: 20px;" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/cashier-3.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label fx:id="q3i0" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q3i1" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q3i2" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q3i3" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="98.0" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="q3i4" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="117.0" prefHeight="50.0" prefWidth="154.0" style="-fx-background-color: #222222; -fx-background-radius: 20px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <VBox fx:id="waitingQueuePanel" alignment="TOP_CENTER" prefHeight="357.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20px;" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting Queue">
+                                       <font>
+                                          <Font name="Arial Bold" size="15.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <ScrollPane fitToWidth="true" prefHeight="281.0" prefWidth="216.0" style="-fx-background-color: #f4f4f4;" VBox.vgrow="NEVER">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <content>
+                                          <Text fx:id="waitingQueueText" boundsType="LOGICAL_VERTICAL_CENTER" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Text>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="917.0" style="-fx-background-color: #000000; -fx-background-radius: 20px;">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Burger count: ">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="burgerCount" fill="WHITE" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25">
+                                       <font>
+                                          <Font name="Arial" size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+            </content>
+          </Tab>
+          <Tab text="Search">
+            <content>
+                  <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-border-width: 2px; -fx-border-color: #ffffff; -fx-border-radius: 0px 0px 20px 20px;">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="43.0" prefWidth="808.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="searchField" prefHeight="25.0" prefWidth="306.0" promptText="Search for customers with name" style="-fx-background-color: #dddddd; -fx-background-radius: 20px;" />
+                              <Button fx:id="searchButton" mnemonicParsing="false" onAction="#searchButtonClick" style="-fx-background-color: #555555; -fx-background-radius: 20px;" text="🔍" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                        <Text fx:id="searchResults" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Results will appear here." wrappingWidth="691.13671875">
+                           <font>
+                              <Font name="Arial" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </VBox>

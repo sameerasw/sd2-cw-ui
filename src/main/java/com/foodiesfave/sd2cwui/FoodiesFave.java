@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -27,8 +28,8 @@ public class FoodiesFave extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FoodiesFave.class.getResource("foodiesfave-gui.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("Foodies Fave - Cashiers");
         stage.setScene(scene);
         stage.show();
     }
@@ -65,7 +66,7 @@ public class FoodiesFave extends Application {
                 case "102", "ACQ" -> addCustomer();
                 case "103", "RCQ" -> removeCustomer();
                 case "104", "PCQ" -> burgers -= removeServed();
-                case "105", "VCS" -> sortAlphabetically(queue1);
+                case "105", "VCS" -> sortAlphabetically();
                 case "106", "SPD" -> storeData();
                 case "107", "LPD" -> burgers = loadData();
                 case "108", "STK" ->
@@ -201,24 +202,9 @@ public class FoodiesFave extends Application {
         return burgers;
     }
 
-    public static void sortAlphabetically(FoodQueue queue1) {
+    public static void sortAlphabetically() {
         //sorts the customers in all 3 arrays in alphabetical order without using the library sort
-        String[] allCustomers = new String[queue1.length() + queue2.length() + queue3.length()];
-        for (int i = 0; i < queue1.length(); i++) {
-            if (!Objects.equals(queue1.returnIndex(i), "")) {
-                allCustomers[i] = queue1.returnIndex(i);
-            }
-        }
-        for (int i = 0; i < queue2.length(); i++) {
-            if (!Objects.equals(queue2.returnIndex(i), "")) {
-                allCustomers[i + queue1.length()] = queue2.returnIndex(i);
-            }
-        }
-        for (int i = 0; i < queue3.length(); i++) {
-            if (!Objects.equals(queue3.returnIndex(i), "")) {
-                allCustomers[i + queue1.length() + queue2.length()] = queue3.returnIndex(i);
-            }
-        } //adds all the customers to one array
+        String[] allCustomers = mergeQueues();
 
         for (int i = 0; i < allCustomers.length; i++) {
             for (int j = i + 1; j < allCustomers.length; j++) {
@@ -306,6 +292,44 @@ public class FoodiesFave extends Application {
             }
         }
         return output;
+    }
+
+    public static ArrayList<String> searchCustomer(String name) {
+        //searches for a customer in the queues
+        ArrayList<String> foundCustomers = new ArrayList<>();
+        if (queue1.searchCustomer(name) != null) {
+            foundCustomers.add("Results from queue 1 :\n" + queue1.searchCustomer(name));
+        }
+        if (queue2.searchCustomer(name) != null) {
+            foundCustomers.add("Results from queue 2 :\n" + queue2.searchCustomer(name));
+        }
+        if (queue3.searchCustomer(name) != null) {
+            foundCustomers.add("Results from queue 3 :\n" + queue3.searchCustomer(name));
+        }
+        if (waitingQueue.searchCustomer(name) != null) {
+            foundCustomers.add("Results from waiting queue :\n" + waitingQueue.searchCustomer(name));
+        }
+        return foundCustomers;
+    }
+
+    private static String[] mergeQueues() {
+        String[] allCustomers = new String[queue1.length() + queue2.length() + queue3.length()];
+        for (int i = 0; i < queue1.length(); i++) {
+            if (!Objects.equals(queue1.returnIndex(i), "")) {
+                allCustomers[i] = queue1.returnIndex(i);
+            }
+        }
+        for (int i = 0; i < queue2.length(); i++) {
+            if (!Objects.equals(queue2.returnIndex(i), "")) {
+                allCustomers[i + queue1.length()] = queue2.returnIndex(i);
+            }
+        }
+        for (int i = 0; i < queue3.length(); i++) {
+            if (!Objects.equals(queue3.returnIndex(i), "")) {
+                allCustomers[i + queue1.length() + queue2.length()] = queue3.returnIndex(i);
+            }
+        }
+        return allCustomers;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.foodiesfave.sd2cwui;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -19,13 +20,13 @@ public class FoodQueue {
     public String addCustomer() {
         Scanner queueInput = new Scanner(System.in);
         System.out.print("\nEnter customer's first name: ");
-        String fName = queueInput.nextLine();
+        String fName = queueInput.nextLine().toLowerCase();
         if (fName.equals("")) {
             System.out.println(FoodiesFave.ANSI_RED + "First name cannot be empty" + FoodiesFave.ANSI_RESET);
             return "No customer";
         }
         System.out.print("Enter customer's second name: ");
-        String sName = queueInput.nextLine();
+        String sName = queueInput.nextLine().toLowerCase();
         System.out.print("Enter number of burgers: ");
         try {
         int burgers = queueInput.nextInt();
@@ -146,5 +147,52 @@ public class FoodQueue {
             }
         }
         return length;
+    }
+
+    public String uiDataRequest(int index) {
+        //returns the data of the customer at the given index
+        try {
+            return "👤\n" + this.queue[index].getFName() + " " + this.queue[index].getSName() + " -" + this.queue[index].getBurgers();
+        }
+        catch (NullPointerException e) {
+            return "❌";
+        }
+    }
+
+    public String uiDataRequest() {
+        //returns the data of the queue as a String
+        String queue = "";
+        for (int i = 0; i < this.queue.length; i++) {
+            try {
+                queue += (i + 1) + ". " + this.queue[i].getFName() + " " + this.queue[i].getSName() + " - " + this.queue[i].getBurgers() + "\n";
+            }
+            catch (NullPointerException e) {
+                queue += (i + 1) + ". " + "\n";
+            }
+        }
+        return queue;
+    }
+
+    public String searchCustomer(String name){
+        //searches for a customer in the queue
+        ArrayList<String> results = new ArrayList<>();
+        for (Customer customer : this.queue) {
+            try {
+                if (customer.getFName().toLowerCase().contains(name) || customer.getSName().toLowerCase().contains(name)) {
+                    results.add(customer.getFName() + " " + customer.getSName() + " - " + customer.getBurgers());
+                }
+            } catch (NullPointerException e) {
+                break;
+            }
+        }
+        if (results.size() == 0) {
+            return null;
+        } else {
+            String result = "";
+            for (int i = 0; i < results.size(); i++) {
+                result += (i + 1) + ". " + results.get(i) + "\n";
+            }
+            return result;
+        }
     }
 }
