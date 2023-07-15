@@ -88,7 +88,7 @@ public class FoodiesFave extends Application {
     private static void income() {
         //Calculates the income of each queue
         int burgerPrice = 650;
-        System.out.println(ANSI_YELLOW + "---INCOME---" + "\nQueue 1: " + (queue1.queueLength() * burgerPrice) + "\nQueue 2: " + (queue2.queueLength() * burgerPrice) + "\nQueue 3: " + (queue3.queueLength() * burgerPrice) + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "---INCOME---" + "\nQueue 1: " + (queue1.queueBurgerCount() * burgerPrice) + "\nQueue 2: " + (queue2.queueBurgerCount() * burgerPrice) + "\nQueue 3: " + (queue3.queueBurgerCount() * burgerPrice) + ANSI_RESET);
     }
 
     public static void arrayPrint() {
@@ -101,7 +101,7 @@ public class FoodiesFave extends Application {
         }
         System.out.println(ANSI_YELLOW + "\n0" + ANSI_RESET + "-Occupied " + ANSI_GREEN + "X" + ANSI_RESET + "-Not Occupied");
         if (!waitingQueue.isEmpty())
-            System.out.println(ANSI_YELLOW + "\nWaiting Queue: " + ANSI_RESET + waitingQueue.queueLength() + " customers");
+            System.out.println(ANSI_YELLOW + "\nWaiting Queue: " + ANSI_RESET + waitingQueue.queueLengthFilled() + " customers");
     }
 
     public static void emptyArrays() {
@@ -258,10 +258,10 @@ public class FoodiesFave extends Application {
             File dataFiles = new File("programData.txt");
             Scanner myReader = new Scanner(dataFiles);
             burgers = Integer.parseInt(myReader.nextLine()); //first line is the burgers amount
-            queue1.dataRestore(tryRead(queue1.getQueue(), myReader)); //restores the first queue
-            queue2.dataRestore(tryRead(queue2.getQueue(), myReader)); //restores the second queue
-            queue3.dataRestore(tryRead(queue3.getQueue(), myReader)); //restores the third queue
-            waitingQueue.dataRestore(tryRead(waitingQueue.getQueue(), myReader)); //restores the waiting queue
+            queue1.dataRestore(tryRead(queue1.length(), myReader)); //restores the first queue
+            queue2.dataRestore(tryRead(queue2.length(), myReader)); //restores the second queue
+            queue3.dataRestore(tryRead(queue3.length(), myReader)); //restores the third queue
+            waitingQueue.dataRestore(tryRead(waitingQueue.length(), myReader)); //restores the waiting queue
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED_BACKGROUND + "An error occurred. Backup file not found." + ANSI_RESET);
         }
@@ -270,10 +270,10 @@ public class FoodiesFave extends Application {
         return burgers;
     }
 
-    private static String[] tryRead(String[] cashier, Scanner myReader) {
+    private static String[] tryRead(int length, Scanner myReader) {
         //tries to read the next line and if it is * it sets the value to null
-        String[] output = new String[cashier.length];
-        for (int i = 0; i < cashier.length; i++) {
+        String[] output = new String[length];
+        for (int i = 0; i < length; i++) {
             if (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 if (data.equals("*")) {

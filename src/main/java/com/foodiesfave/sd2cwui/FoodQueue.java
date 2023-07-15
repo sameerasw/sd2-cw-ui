@@ -61,14 +61,14 @@ public class FoodQueue {
             System.out.println(FoodiesFave.ANSI_RED + "Queue is empty" + FoodiesFave.ANSI_RESET);
         } else {
             burgers = this.queue[index].getBurgers();
-            System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[index].getFName() + " removed" + FoodiesFave.ANSI_RESET);
+            System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[index].getFName() + " removed from " + this.queueName + FoodiesFave.ANSI_RESET);
             this.queue[index] = null;
             this.reOrder();
             if (!FoodiesFave.waitingQueue.isEmpty()){
                 this.queue[this.length()-1] = FoodiesFave.waitingQueue.queue[0];
                 FoodiesFave.waitingQueue.queue[0] = null;
                 FoodiesFave.waitingQueue.reOrder();
-                System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[this.length()-1].getFName() + " " + "added to queue from waiting list" + FoodiesFave.ANSI_RESET);
+                System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[this.length()-1].getFName() + " " + "added to " + this.queueName + " from waiting list" + FoodiesFave.ANSI_RESET);
             }
         }
         }
@@ -127,6 +127,17 @@ public class FoodQueue {
 
     public int length() { return this.queue.length; }
 
+    public int queueLengthFilled(){
+        //returns the length of the queue filled with customers
+        int length = 0;
+        for (Customer customer : this.queue) {
+            if (customer != null) {
+                length++;
+            }
+        }
+        return length;
+    }
+
     public void dataRestore(String[] data) {
         //restores the data from the file
         for (int i = 0; i < data.length; i++) {
@@ -140,15 +151,17 @@ public class FoodQueue {
         }
     }
 
-    public int queueLength() {
-        //prints the length of the queue
-        int length = 0;
+    public int queueBurgerCount() {
+        //returns how much burgers are requested from the whole queue
+        int burgers = 0;
         for (Customer customer : this.queue) {
-            if (customer != null) {
-                length++;
+            try {
+                burgers += customer.getBurgers();
+            } catch (NullPointerException e) {
+                break;
             }
         }
-        return length;
+        return burgers;
     }
 
     public String uiDataRequest(int index) {
