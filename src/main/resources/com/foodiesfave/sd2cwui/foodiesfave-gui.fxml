@@ -34,7 +34,7 @@
             </Text>
          </children>
       </HBox>
-      <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="582.0" prefWidth="921.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="100.0" tabMinHeight="30.0" tabMinWidth="50.0">
+      <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="582.0" prefWidth="921.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="100.0" tabMinHeight="30.0" tabMinWidth="75.0" VBox.vgrow="ALWAYS">
         <tabs>
             <Tab id="empty" disable="true">
               <content>
@@ -45,7 +45,7 @@
             <content>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0" style="-fx-border-color: #222222; -fx-border-width: 5px; -fx-border-radius: 20px; -fx-background-color: #222222; -fx-background-radius: 20px;">
                      <children>
-                        <HBox maxHeight="1.7976931348623157E308" prefHeight="449.0" prefWidth="917.0">
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="449.0" prefWidth="917.0" VBox.vgrow="ALWAYS">
                            <children>
                               <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="336.0" prefWidth="467.0" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
@@ -180,7 +180,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </VBox.margin>
                                     </Text>
-                                    <ScrollPane fitToWidth="true" prefHeight="281.0" prefWidth="216.0" style="-fx-background-color: #000000;" VBox.vgrow="NEVER">
+                                    <ScrollPane fitToWidth="true" prefHeight="359.0" prefWidth="230.0" style="-fx-background-color: #000000;" VBox.vgrow="NEVER">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>

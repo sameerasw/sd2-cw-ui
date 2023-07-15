@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class FoodiesFave extends Application {
     static FoodQueue queue1 = new FoodQueue(2, "Queue 1");
     static FoodQueue queue2 = new FoodQueue(3 , "Queue 2");
     static FoodQueue queue3 = new FoodQueue(5 , "Queue 3");
-    static FoodQueue waitingQueue = new FoodQueue(10 , "Waiting Queue");
+    static FoodQueue waitingQueue = new FoodQueue(20 , "Waiting Queue");
 
     static int burgers = 50;
     public static final String ANSI_RESET = "\u001B[0m"; //ANSI colors for the program : https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -30,6 +31,7 @@ public class FoodiesFave extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Foodies Fave - Cashiers");
         stage.setScene(scene);
+        stage.getIcons().add(new Image("file:src/main/resources/com/foodiesfave/icons/burger.png"));
         stage.show();
     }
 
@@ -60,7 +62,7 @@ public class FoodiesFave extends Application {
         while (continueProgram) {
             System.out.println(
                     """
-                            --------------------------------------------------------- \s
+                            \n--------------------------------------------------------- \s
                             100 or VFQ: View all Queues.
                             101 or VEQ: View all Empty Queues.
                             102 or ACQ: Add customer to a Queue.
