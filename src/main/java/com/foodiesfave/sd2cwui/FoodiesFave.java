@@ -101,7 +101,7 @@ public class FoodiesFave extends Application {
         }
         System.out.println(ANSI_YELLOW + "\n0" + ANSI_RESET + "-Occupied " + ANSI_GREEN + "X" + ANSI_RESET + "-Not Occupied");
         if (!waitingQueue.isEmpty())
-            System.out.println(ANSI_YELLOW + "\nWaiting Queue: " + ANSI_RESET + waitingQueue.queueLengthFilled() + " customers");
+            System.out.println(ANSI_YELLOW + "\nWaiting Queue: " + ANSI_RESET + waitingQueue.length(true) + " customers");
     }
 
     public static void emptyArrays() {
@@ -258,10 +258,10 @@ public class FoodiesFave extends Application {
             File dataFiles = new File("programData.txt");
             Scanner myReader = new Scanner(dataFiles);
             burgers = Integer.parseInt(myReader.nextLine()); //first line is the burgers amount
-            queue1.dataRestore(tryRead(queue1.length(), myReader)); //restores the first queue
-            queue2.dataRestore(tryRead(queue2.length(), myReader)); //restores the second queue
-            queue3.dataRestore(tryRead(queue3.length(), myReader)); //restores the third queue
-            waitingQueue.dataRestore(tryRead(waitingQueue.length(), myReader)); //restores the waiting queue
+            queue1.dataRestore(tryRead(queue1.length(false), myReader)); //restores the first queue
+            queue2.dataRestore(tryRead(queue2.length(false), myReader)); //restores the second queue
+            queue3.dataRestore(tryRead(queue3.length(false), myReader)); //restores the third queue
+            waitingQueue.dataRestore(tryRead(waitingQueue.length(false), myReader)); //restores the waiting queue
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED_BACKGROUND + "An error occurred. Backup file not found." + ANSI_RESET);
         }
@@ -305,20 +305,20 @@ public class FoodiesFave extends Application {
     }
 
     private static String[] mergeQueues() {
-        String[] allCustomers = new String[queue1.length() + queue2.length() + queue3.length()];
-        for (int i = 0; i < queue1.length(); i++) {
+        String[] allCustomers = new String[queue1.length(false) + queue2.length(false) + queue3.length(false)];
+        for (int i = 0; i < queue1.length(false); i++) {
             if (!Objects.equals(queue1.returnIndex(i), "")) {
                 allCustomers[i] = queue1.returnIndex(i);
             }
         }
-        for (int i = 0; i < queue2.length(); i++) {
+        for (int i = 0; i < queue2.length(false); i++) {
             if (!Objects.equals(queue2.returnIndex(i), "")) {
-                allCustomers[i + queue1.length()] = queue2.returnIndex(i);
+                allCustomers[i + queue1.length(false)] = queue2.returnIndex(i);
             }
         }
-        for (int i = 0; i < queue3.length(); i++) {
+        for (int i = 0; i < queue3.length(false); i++) {
             if (!Objects.equals(queue3.returnIndex(i), "")) {
-                allCustomers[i + queue1.length() + queue2.length()] = queue3.returnIndex(i);
+                allCustomers[i + queue1.length(false) + queue2.length(false)] = queue3.returnIndex(i);
             }
         }
         return allCustomers;

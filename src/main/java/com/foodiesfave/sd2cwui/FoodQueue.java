@@ -65,10 +65,10 @@ public class FoodQueue {
             this.queue[index] = null;
             this.reOrder();
             if (!FoodiesFave.waitingQueue.isEmpty()){
-                this.queue[this.length()-1] = FoodiesFave.waitingQueue.queue[0];
+                this.queue[this.length(false)-1] = FoodiesFave.waitingQueue.queue[0];
                 FoodiesFave.waitingQueue.queue[0] = null;
                 FoodiesFave.waitingQueue.reOrder();
-                System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[this.length()-1].getFName() + " " + "added to " + this.queueName + " from waiting list" + FoodiesFave.ANSI_RESET);
+                System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[this.length(false)-1].getFName() + " " + "added to " + this.queueName + " from waiting list" + FoodiesFave.ANSI_RESET);
             }
         }
         }
@@ -94,8 +94,8 @@ public class FoodQueue {
     }
 
     public String[] getQueue() {
-        String[] queue = new String[this.length()];
-        for (int i = 0; i < this.length(); i++) {
+        String[] queue = new String[this.length(false)];
+        for (int i = 0; i < this.length(false); i++) {
             try {
                 queue[i] = this.queue[i].getFName() + "_" + this.queue[i].getSName() + "_" + this.queue[i].getBurgers();
             }
@@ -125,17 +125,20 @@ public class FoodQueue {
         catch (NullPointerException e) { return ""; }
     }
 
-    public int length() { return this.queue.length; }
-
-    public int queueLengthFilled(){
+    public int length(boolean isWaiting) {
         //returns the length of the queue filled with customers
-        int length = 0;
-        for (Customer customer : this.queue) {
-            if (customer != null) {
-                length++;
+        if(isWaiting){
+            int length = 0;
+            for (Customer customer : this.queue) {
+                if (customer != null) {
+                    length++;
+                }
             }
+            return length;
         }
-        return length;
+        else{
+            return this.queue.length;
+        }
     }
 
     public void dataRestore(String[] data) {
