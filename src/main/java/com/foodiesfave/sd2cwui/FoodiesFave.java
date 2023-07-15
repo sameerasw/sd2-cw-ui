@@ -1,6 +1,5 @@
 package com.foodiesfave.sd2cwui;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,14 +8,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
-
 import java.io.IOException;
 
 public class FoodiesFave extends Application {
-    static FoodQueue queue1 = new FoodQueue(2);
-    static FoodQueue queue2 = new FoodQueue(3);
-    static FoodQueue queue3 = new FoodQueue(5);
-    static FoodQueue waitingQueue = new FoodQueue(10);
+    static FoodQueue queue1 = new FoodQueue(2, "Queue 1");
+    static FoodQueue queue2 = new FoodQueue(3 , "Queue 2");
+    static FoodQueue queue3 = new FoodQueue(5 , "Queue 3");
+    static FoodQueue waitingQueue = new FoodQueue(10 , "Waiting Queue");
 
     static int burgers = 50;
     public static final String ANSI_RESET = "\u001B[0m"; //ANSI colors for the program : https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -63,7 +61,7 @@ public class FoodiesFave extends Application {
             switch (input.next().toUpperCase()) {
                 case "100", "VFQ" -> arrayPrint();
                 case "101", "VEQ" -> emptyArrays();
-                case "102", "ACQ" -> addCustomer();
+                case "102", "ACQ" -> addCustomerSelector();
                 case "103", "RCQ" -> removeCustomer();
                 case "104", "PCQ" -> burgers -= removeServed();
                 case "105", "VCS" -> sortAlphabetically();
@@ -73,7 +71,7 @@ public class FoodiesFave extends Application {
                         System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be enough for " + burgers / 5 + " customers" + ANSI_RESET);
                 case "109", "AFS" -> burgers = addStock();
                 case "110", "IFQ" -> income();
-                case "112", "GUI" -> gui();
+                case "112", "GUI" -> launch();
                 case "999", "EXT" -> continueProgram = false; //loop breaker
                 default -> System.out.println(ANSI_RED + "Invalid option" + ANSI_RESET);
             }
@@ -85,11 +83,6 @@ public class FoodiesFave extends Application {
         input.close(); //important : closes the scanner
         System.out.println(ANSI_YELLOW + "Program ended." + ANSI_RESET);
         System.exit(0); //exits the program
-    }
-
-    private static void gui() {
-        //Launches the GUI
-        launch();
     }
 
     private static void income() {
@@ -113,34 +106,33 @@ public class FoodiesFave extends Application {
 
     public static void emptyArrays() {
         //Checks if any queue is empty and prints it
-        if (queue1.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 1 is empty" + ANSI_RESET);
-        if (queue2.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 2 is empty" + ANSI_RESET);
-        if (queue3.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 3 is empty" + ANSI_RESET);
+        if (queue1.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 1 queue is empty" + ANSI_RESET);
+        if (queue2.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 2 queue is empty" + ANSI_RESET);
+        if (queue3.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 3 queue is empty" + ANSI_RESET);
         if (!queue1.isEmpty() && !queue2.isEmpty() && !queue3.isEmpty())
             System.out.println(ANSI_RED + "All the queues are full. No empty spots." + ANSI_RESET);
     }
 
-    public static void addCustomer() {
+    public static void addCustomerSelector() {
         //adds a customer to the queue with the least amount of customers
         int index = 0;
         while (index < 5) {
+            //this process will select the shortest queue and the position to add the customer automatically.
             if (queue1.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
-                System.out.println(queue1.addCustomer() + " added to queue 1");
                 break;
             } else if (queue2.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
-                System.out.println(queue2.addCustomer() + " added to queue 2");
                 break;
             } else if (queue3.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
-                System.out.println(queue3.addCustomer() + " added to queue 3");
                 break;
             }
             index++;
         }
         if (index == 5) {
             if (waitingQueue.isFull()) {
-                System.out.println(ANSI_RED + "All the queues and the waiting queue are full. No empty spots." + ANSI_RESET);
+                System.out.println(ANSI_RED + "All the queues and the waiting queue are full. No empty spots. Try adding later." + ANSI_RESET);
             } else {
-                System.out.println(ANSI_YELLOW + "All the queues are full. " + waitingQueue.addCustomer() + " added to the waiting queue." + ANSI_RESET);
+                System.out.print(ANSI_YELLOW + "All the queues are full. Adding to the waiting queue."+ ANSI_RESET);
+                waitingQueue.addCustomer();
             }
         }
     }
@@ -221,8 +213,8 @@ public class FoodiesFave extends Application {
         System.out.println(ANSI_GREEN + "Customers sorted alphabetically: " + ANSI_RESET);
         for (String customer : allCustomers) {
             if (customer != null) {
-                System.out.println(customer);
-            } //prints all the customers in the array
+                System.out.println(customer); //prints all the customers in the array
+            }
         }
     }
 
@@ -265,13 +257,13 @@ public class FoodiesFave extends Application {
         try {
             File dataFiles = new File("programData.txt");
             Scanner myReader = new Scanner(dataFiles);
-            burgers = Integer.parseInt(myReader.nextLine());
-            queue1.dataRestore(tryRead(queue1.getQueue(), myReader));
-            queue2.dataRestore(tryRead(queue2.getQueue(), myReader));
-            queue3.dataRestore(tryRead(queue3.getQueue(), myReader));
-            waitingQueue.dataRestore(tryRead(waitingQueue.getQueue(), myReader));
+            burgers = Integer.parseInt(myReader.nextLine()); //first line is the burgers amount
+            queue1.dataRestore(tryRead(queue1.getQueue(), myReader)); //restores the first queue
+            queue2.dataRestore(tryRead(queue2.getQueue(), myReader)); //restores the second queue
+            queue3.dataRestore(tryRead(queue3.getQueue(), myReader)); //restores the third queue
+            waitingQueue.dataRestore(tryRead(waitingQueue.getQueue(), myReader)); //restores the waiting queue
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(ANSI_RED_BACKGROUND + "An error occurred. Backup file not found." + ANSI_RESET);
         }
         arrayPrint();
         System.out.println(ANSI_YELLOW + "There are " + burgers + " burgers in the stock." + ANSI_RESET);
@@ -294,7 +286,7 @@ public class FoodiesFave extends Application {
         return output;
     }
 
-    public static ArrayList<String> searchCustomer(String name) {
+    public static ArrayList<String> searchCustomerSelector(String name) {
         //searches for a customer in the queues
         ArrayList<String> foundCustomers = new ArrayList<>();
         if (queue1.searchCustomer(name) != null) {

@@ -6,10 +6,12 @@ import java.util.Scanner;
 
 public class FoodQueue {
     private final int size;
+    private final String queueName;
     private final Customer[] queue;
 
-    public FoodQueue(int size) {
+    public FoodQueue(int size, String queueName) {
         this.size = size;
+        this.queueName = queueName;
         this.queue = new Customer[size];
     }
 
@@ -17,13 +19,13 @@ public class FoodQueue {
 
     public boolean isFull() { return this.queue[this.size-1] != null; }
 
-    public String addCustomer() {
+    public void addCustomer() {
         Scanner queueInput = new Scanner(System.in);
         System.out.print("\nEnter customer's first name: ");
         String fName = queueInput.nextLine().toLowerCase();
         if (fName.equals("")) {
             System.out.println(FoodiesFave.ANSI_RED + "First name cannot be empty" + FoodiesFave.ANSI_RESET);
-            return "No customer";
+            System.out.println("No customer was added. Please try again.");
         }
         System.out.print("Enter customer's second name: ");
         String sName = queueInput.nextLine().toLowerCase();
@@ -32,7 +34,7 @@ public class FoodQueue {
         int burgers = queueInput.nextInt();
             if (burgers < 1) {
                 System.out.println(FoodiesFave.ANSI_RED + "Number of burgers must be greater than 0" + FoodiesFave.ANSI_RESET);
-                return fName;
+                System.out.println("No customer was added. Please try again.");
             }
                 if (this.isFull()) {
                     System.out.println(FoodiesFave.ANSI_RED + "Queue is full" + FoodiesFave.ANSI_RESET);
@@ -49,7 +51,7 @@ public class FoodQueue {
         catch (NullPointerException | InputMismatchException e) {
             System.out.println(FoodiesFave.ANSI_RED + "burgers count must be a number" + FoodiesFave.ANSI_RESET);
         }
-        return fName;
+        System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + fName + " " + sName + " added to " + this.queueName + FoodiesFave.ANSI_RESET);
     }
 
     public int removeCustomer(int index) {
@@ -59,7 +61,7 @@ public class FoodQueue {
             System.out.println(FoodiesFave.ANSI_RED + "Queue is empty" + FoodiesFave.ANSI_RESET);
         } else {
             burgers = this.queue[index].getBurgers();
-            System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[index].getFName() + " " + "removed" + FoodiesFave.ANSI_RESET);
+            System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[index].getFName() + " removed" + FoodiesFave.ANSI_RESET);
             this.queue[index] = null;
             this.reOrder();
             if (!FoodiesFave.waitingQueue.isEmpty()){
@@ -161,16 +163,16 @@ public class FoodQueue {
 
     public String uiDataRequest() {
         //returns the data of the queue as a String
-        String queue = "";
+        StringBuilder queue = new StringBuilder();
         for (int i = 0; i < this.queue.length; i++) {
             try {
-                queue += (i + 1) + ". " + this.queue[i].getFName() + " " + this.queue[i].getSName() + " - " + this.queue[i].getBurgers() + "\n";
+                queue.append((i + 1)).append(". ").append(this.queue[i].getFName()).append(" ").append(this.queue[i].getSName()).append(" - ").append(this.queue[i].getBurgers()).append("\n");
             }
             catch (NullPointerException e) {
-                queue += (i + 1) + ". " + "\n";
+                queue.append("\n");
             }
         }
-        return queue;
+        return queue.toString();
     }
 
     public String searchCustomer(String name){
@@ -188,11 +190,11 @@ public class FoodQueue {
         if (results.size() == 0) {
             return null;
         } else {
-            String result = "";
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < results.size(); i++) {
-                result += (i + 1) + ". " + results.get(i) + "\n";
+                result.append((i + 1)).append(". ").append(results.get(i)).append("\n");
             }
-            return result;
+            return result.toString();
         }
     }
 }

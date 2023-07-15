@@ -1,13 +1,9 @@
 package com.foodiesfave.sd2cwui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.util.ArrayList;
 
 public class HelloController extends FoodiesFave implements InitializeUI {
@@ -17,9 +13,6 @@ public class HelloController extends FoodiesFave implements InitializeUI {
 
     @FXML
     private Text waitingQueueText;
-
-    @FXML
-    private VBox waitingQueuePanel;
 
     @FXML
     private Label q1i0;
@@ -52,35 +45,27 @@ public class HelloController extends FoodiesFave implements InitializeUI {
     private Label q3i4;
 
     @FXML
-    private Button searchButton;
-
-    @FXML
     private TextField searchField;
 
     @FXML
     private Text searchResults;
 
     @FXML
-    void searchButtonClick(ActionEvent event) {
+    void searchButtonClick() {
         //searches for a customer by name
         String searchName = searchField.getText().toLowerCase();
-        String output = "";
-        ArrayList<String> results = searchCustomer(searchName);
+        StringBuilder output = new StringBuilder();
+        ArrayList<String> results = searchCustomerSelector(searchName);
         if (searchName.isEmpty()) {
             searchField.setPromptText("Enter a name to search");
         } else {
-            if(results != null) {
-                searchField.clear();
-                int index = 0;
-                while (index < results.size()) {
-                    output += results.get(index) + "\n";
-                    index++;
-                }
-                searchResults.setText(output);
-            } else {
-                searchField.clear();
-                searchField.setPromptText("Customer not found");
+            searchField.clear();
+            int index = 0;
+            while (index < results.size()) {
+                output.append(results.get(index)).append("\n");
+                index++;
             }
+            searchResults.setText(output.toString());
         }
     }
 
