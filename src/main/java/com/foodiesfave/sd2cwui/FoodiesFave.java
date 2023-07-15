@@ -62,14 +62,14 @@ public class FoodiesFave extends Application {
                 case "100", "VFQ" -> arrayPrint();
                 case "101", "VEQ" -> emptyArrays();
                 case "102", "ACQ" -> addCustomerSelector();
-                case "103", "RCQ" -> removeCustomer();
-                case "104", "PCQ" -> burgers -= removeServed();
+                case "103", "RCQ" -> removeCustomer(input);
+                case "104", "PCQ" -> burgers -= removeServed(input);
                 case "105", "VCS" -> sortAlphabetically();
                 case "106", "SPD" -> storeData();
                 case "107", "LPD" -> burgers = loadData();
                 case "108", "STK" ->
                         System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be enough for " + burgers / 5 + " customers" + ANSI_RESET);
-                case "109", "AFS" -> burgers = addStock();
+                case "109", "AFS" -> burgers = addStock(input);
                 case "110", "IFQ" -> income();
                 case "112", "GUI" -> launch();
                 case "999", "EXT" -> continueProgram = false; //loop breaker
@@ -137,9 +137,8 @@ public class FoodiesFave extends Application {
         }
     }
 
-    public static int removeServed() {
+    public static int removeServed(Scanner input) {
         //removes a customer from the queue from a specific location
-        Scanner input = new Scanner(System.in);
         int cashier = selectItem(input, "cashier(1,2,3)");
         switch (cashier) {
             case 1 -> burgers = queue1.removeCustomer(0);
@@ -150,11 +149,10 @@ public class FoodiesFave extends Application {
         return burgers;
     }
 
-    public static void removeCustomer() {
+    public static void removeCustomer(Scanner input) {
         //removes a served customer from the queue
-        Scanner input = new Scanner(System.in);
-        int cashier = selectItem(input, "cashier(1,2,3): ");
-        int index = selectItem(input, "location(1,2,3,4,5): ");
+        int cashier = selectItem(input, "cashier(1,2,3)");
+        int index = selectItem(input, "location(1,2,3,4,5)");
         switch (cashier) {
             case 1 -> queue1.removeCustomer(index - 1);
             case 2 -> queue2.removeCustomer(index - 1);
@@ -176,10 +174,9 @@ public class FoodiesFave extends Application {
         return received;
     }
 
-    public static int addStock() {
+    public static int addStock(Scanner input) {
         //adds burgers to the stock
         System.out.print("Enter how many burgers to add: ");
-        Scanner input = new Scanner(System.in);
         try {
             burgers += input.nextInt();
         } catch (Exception e) {
