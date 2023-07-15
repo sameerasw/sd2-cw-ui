@@ -130,10 +130,10 @@ public class FoodiesFave extends Application {
 
     public static void emptyArrays() {
         //Checks if any queue is empty and prints it
-        if (queue1.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 1 queue is empty" + ANSI_RESET);
-        if (queue2.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 2 queue is empty" + ANSI_RESET);
-        if (queue3.isEmpty()) System.out.println(ANSI_YELLOW + "Cashier 3 queue is empty" + ANSI_RESET);
-        if (!queue1.isEmpty() && !queue2.isEmpty() && !queue3.isEmpty())
+        if (!queue1.isFull()) System.out.println(ANSI_YELLOW + "Cashier 1 queue is empty.  At least one spot available." + ANSI_RESET);
+        if (!queue2.isFull()) System.out.println(ANSI_YELLOW + "Cashier 2 queue is empty.  At least one spot available." + ANSI_RESET);
+        if (!queue3.isFull()) System.out.println(ANSI_YELLOW + "Cashier 3 queue is empty.  At least one spot available." + ANSI_RESET);
+        if (queue1.isFull() && !queue2.isFull() && !queue3.isFull())
             System.out.println(ANSI_RED + "All the queues are full. No empty spots." + ANSI_RESET);
     }
 
