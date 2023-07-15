@@ -91,7 +91,7 @@ public class FoodiesFave extends Application {
                 case "106", "SPD" -> storeData();
                 case "107", "LPD" -> burgers = loadData();
                 case "108", "STK" ->
-                        System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be enough for " + burgers / 5 + " customers" + ANSI_RESET);
+                        System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be roughly enough for " + burgers / 5 + " customers. (5 per)" + ANSI_RESET);
                 case "109", "AFS" -> burgers = addStock(input);
                 case "110", "IFQ" -> income();
                 case "112", "GUI" -> launchGUI();
@@ -343,5 +343,4 @@ public class FoodiesFave extends Application {
         }
         return allCustomers;
     }
-
 }
