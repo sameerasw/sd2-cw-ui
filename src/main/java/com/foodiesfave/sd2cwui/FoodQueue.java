@@ -22,13 +22,13 @@ public class FoodQueue {
     public void addCustomer() {
         Scanner queueInput = new Scanner(System.in);
         System.out.print("\nEnter customer's first name: ");
-        String fName = queueInput.nextLine().toLowerCase();
+        String fName = queueInput.nextLine();
         if (fName.equals("")) {
             System.out.println(FoodiesFave.ANSI_RED + "First name cannot be empty" + FoodiesFave.ANSI_RESET);
             System.out.println("No customer was added. Please try again.");
         }
         System.out.print("Enter customer's second name: ");
-        String sName = queueInput.nextLine().toLowerCase();
+        String sName = queueInput.nextLine();
         System.out.print("Enter number of burgers: ");
         try {
         int burgers = queueInput.nextInt();

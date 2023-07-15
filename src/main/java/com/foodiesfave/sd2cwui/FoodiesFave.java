@@ -89,7 +89,7 @@ public class FoodiesFave extends Application {
                 case "104", "PCQ" -> burgers -= removeServed(input);
                 case "105", "VCS" -> sortAlphabetically();
                 case "106", "SPD" -> storeData();
-                case "107", "LPD" -> burgers = loadData();
+                case "107", "LPD" -> burgers = loadData(input);
                 case "108", "STK" ->
                         System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be roughly enough for " + burgers / 5 + " customers. (5 per)" + ANSI_RESET);
                 case "109", "AFS" -> burgers = addStock(input);
@@ -142,10 +142,13 @@ public class FoodiesFave extends Application {
         while (index < 5) {
             //this process will select the shortest queue and the position to add the customer automatically.
             if (queue1.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
+                queue1.addCustomer();
                 break;
             } else if (queue2.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
+                queue2.addCustomer();
                 break;
             } else if (queue3.emptyOrNot(index).equals(ANSI_GREEN + "X" + ANSI_RESET)) {
+                queue3.addCustomer();
                 break;
             }
             index++;
@@ -222,7 +225,7 @@ public class FoodiesFave extends Application {
             for (int j = i + 1; j < allCustomers.length; j++) {
                 if (allCustomers[i] != null && allCustomers[j] != null) {
                     //compare two strings with .compareTo
-                    if (allCustomers[i].compareTo(allCustomers[j]) > 0) {
+                    if (allCustomers[i].toLowerCase().compareTo(allCustomers[j].toLowerCase()) > 0) {
                         String temp = allCustomers[i];
                         allCustomers[i] = allCustomers[j];
                         allCustomers[j] = temp;
@@ -272,8 +275,13 @@ public class FoodiesFave extends Application {
         }
     }
 
-    public static int loadData() {
+    public static int loadData(Scanner input) {
         //prints the data from the file
+        System.out.println(ANSI_YELLOW + "Are you sure want to overwrite the existing data?\nEnter " + ANSI_RED + "Y" + ANSI_YELLOW + " to confirm or anything else to abort: " + ANSI_RESET);
+        if (!input.next().equalsIgnoreCase("Y")) {
+            System.out.print(ANSI_RED + "Aborted." + ANSI_RESET);
+            return burgers;
+        }
         try {
             File dataFiles = new File("programData.txt");
             Scanner myReader = new Scanner(dataFiles);
@@ -285,6 +293,7 @@ public class FoodiesFave extends Application {
         } catch (FileNotFoundException e) {
             System.out.println(ANSI_RED_BACKGROUND + "An error occurred. Backup file not found." + ANSI_RESET);
         }
+        System.out.println(ANSI_GREEN + "Successfully loaded the data." + ANSI_RESET);
         arrayPrint();
         System.out.println(ANSI_YELLOW + "There are " + burgers + " burgers in the stock." + ANSI_RESET);
         return burgers;
