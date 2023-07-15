@@ -34,8 +34,7 @@ public class FoodiesFave extends Application {
     }
 
     private static volatile boolean javaFxLaunched = false;
-    // Launches the JavaFX application and keeps its thread allowing to re-launch after closing (fix for issue #1)
-    // https://stackoverflow.com/questions/24320014/how-to-call-launch-more-than-once-in-java/61771424#61771424
+    // Launches the JavaFX application and keeps its thread allowing to re-launch after closing (fix for issue #1) https://stackoverflow.com/questions/24320014/how-to-call-launch-more-than-once-in-java/61771424#61771424
 
     public static void launchGUI() {
         if (!javaFxLaunched) { // First time

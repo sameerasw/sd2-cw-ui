@@ -1,0 +1,39 @@
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #000000;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-effect: null;
+}
+
+.tab {
+    -fx-background-color: #000000;
+    -fx-background-radius: 10px 10px 0px 0px;
+}
+
+.tab:hover{
+    -fx-background-color: #222222;
+}
+
+.tab:selected {
+    -fx-background-color: #222222;
+}
+
+.tab-pane:focused .tab:selected .focus-indicator {
+    -fx-border-width: 0 ;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+}
+
+.tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+
+ .scroll-pane {
+    -fx-background-color: transparent;
+ }
