@@ -1,6 +1,7 @@
 package com.foodiesfave.sd2cwui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -30,6 +31,28 @@ public class FoodiesFave extends Application {
         stage.setTitle("Foodies Fave - Cashiers");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private static volatile boolean javaFxLaunched = false;
+    // Launches the JavaFX application and keeps its thread allowing to re-launch after closing (fix for issue #1)
+    // https://stackoverflow.com/questions/24320014/how-to-call-launch-more-than-once-in-java/61771424#61771424
+
+    public static void launchGUI() {
+        if (!javaFxLaunched) { // First time
+            Platform.setImplicitExit(false);
+            new Thread(()->Application.launch(FoodiesFave.class)).start();
+            javaFxLaunched = true;
+        } else { // Next times
+            Platform.runLater(()->{
+                try {
+                    Application application = FoodiesFave.class.getDeclaredConstructor().newInstance();
+                    Stage primaryStage = new Stage();
+                    application.start(primaryStage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 
     public static void main(String[] args) {
@@ -71,7 +94,7 @@ public class FoodiesFave extends Application {
                         System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be enough for " + burgers / 5 + " customers" + ANSI_RESET);
                 case "109", "AFS" -> burgers = addStock(input);
                 case "110", "IFQ" -> income();
-                case "112", "GUI" -> launch();
+                case "112", "GUI" -> launchGUI();
                 case "999", "EXT" -> continueProgram = false; //loop breaker
                 default -> System.out.println(ANSI_RED + "Invalid option" + ANSI_RESET);
             }
