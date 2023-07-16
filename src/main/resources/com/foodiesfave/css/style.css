@@ -1,8 +1,9 @@
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: #000000;
+    -fx-background-color: transparent;
 }
 
 .tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
     -fx-effect: null;
     -fx-spacing: 10px;
 }
@@ -53,4 +54,10 @@
 
 #empty:hover {
     -fx-background-color: transparent;
+}
+
+#background {
+    -fx-background-image: url("file:src/main/resources/com/foodiesfave/icons/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
 }
