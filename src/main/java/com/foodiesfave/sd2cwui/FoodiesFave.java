@@ -95,8 +95,7 @@ public class FoodiesFave extends Application {
                 case "105", "VCS" -> sortAlphabetically();
                 case "106", "SPD" -> storeData();
                 case "107", "LPD" -> burgers = loadData(input);
-                case "108", "STK" ->
-                        System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be roughly enough for " + burgers / 5 + " customers. (5 per)" + ANSI_RESET);
+                case "108", "STK" -> System.out.println(ANSI_YELLOW + "Burgers in stock: " + burgers + "\nAnd will be roughly enough for " + burgers / 5 + " customers. (5 per)" + ANSI_RESET);
                 case "109", "AFS" -> burgers = addStock(input);
                 case "110", "IFQ" -> income();
                 case "112", "GUI" -> launchGUI();
@@ -106,7 +105,7 @@ public class FoodiesFave extends Application {
         }
         System.out.print(ANSI_RED + "Do you want to save current data before exit?\nPress " + ANSI_YELLOW + "Y" + ANSI_RED + " to save or " + ANSI_YELLOW + "anything else" + ANSI_RED + " to exit. :" + ANSI_RESET); //data save prompt
         if (input.next().equalsIgnoreCase("Y")) {
-            storeData();
+            storeData(); //stores data if user wants to
         }
         input.close(); //important : closes the scanner
         System.out.println(ANSI_YELLOW + "Program ended." + ANSI_RESET);
@@ -133,7 +132,7 @@ public class FoodiesFave extends Application {
     }
 
     public static void emptyArrays() {
-        //Checks if any queue is empty and prints it
+        //Checks if any queue is empty and prints it (at least one spot free means empty)
         if (!queue1.isFull()) System.out.println(ANSI_YELLOW + "Cashier 1 queue is empty.  At least one spot available." + ANSI_RESET);
         if (!queue2.isFull()) System.out.println(ANSI_YELLOW + "Cashier 2 queue is empty.  At least one spot available." + ANSI_RESET);
         if (!queue3.isFull()) System.out.println(ANSI_YELLOW + "Cashier 3 queue is empty.  At least one spot available." + ANSI_RESET);
@@ -169,7 +168,7 @@ public class FoodiesFave extends Application {
     }
 
     public static int removeServed(Scanner input) {
-        //removes a customer from the queue from a specific location
+        //removes a customer from the queue after serving (index is always 0)
         int cashier = selectItem(input, "cashier(1,2,3)");
         switch (cashier) {
             case 1 -> burgers = queue1.removeCustomer(0);
@@ -181,7 +180,7 @@ public class FoodiesFave extends Application {
     }
 
     public static void removeCustomer(Scanner input) {
-        //removes a served customer from the queue
+        //removes a customer from a specific queue and location
         int cashier = selectItem(input, "cashier(1,2,3 and 4 for the waiting queue)");
         int index = selectItem(input, "location(1,2,3,4,...)");
         switch (cashier) {
@@ -194,7 +193,7 @@ public class FoodiesFave extends Application {
     }
 
     public static int selectItem(Scanner input, String item) {
-        //Asks the user to select a cashier or a position depending on the passed parameter
+        //Asks the user to select a cashier or a position depending on the passed parameter. This method is just to make the code simpler.
         System.out.print("Enter which " + item + " : ");
         int received;
         try {
@@ -207,7 +206,7 @@ public class FoodiesFave extends Application {
     }
 
     public static int addStock(Scanner input) {
-        //adds burgers to the stock
+        //adds burgers to the stock (maximum 50)
         System.out.print("Enter how many burgers to add: ");
         try {
             burgers += input.nextInt();
@@ -241,9 +240,7 @@ public class FoodiesFave extends Application {
         }
         System.out.println(ANSI_GREEN + "Customers sorted alphabetically: " + ANSI_RESET);
         for (String customer : allCustomers) {
-            if (customer != null) {
-                System.out.println(customer); //prints all the customers in the array
-            }
+            if (customer != null) { System.out.println(customer);} //prints all the customers in the sorted array
         }
     }
 
@@ -271,10 +268,10 @@ public class FoodiesFave extends Application {
     }
 
     private static void writeLine(String[] cashier, FileWriter dataWriter) throws IOException {
-        //writes current data to the file line by line (for cashier arrays)
+        //writes current data to the file line by line (each line is a customer)
         for (String s : cashier) {
             if (s == null) {
-                dataWriter.write("*\n");
+                dataWriter.write("*\n"); //if the line is empty, writes a * instead of null
             } else {
                 dataWriter.write(s + "\n");
             }
@@ -282,7 +279,7 @@ public class FoodiesFave extends Application {
     }
 
     public static int loadData(Scanner input) {
-        //prints the data from the file
+        //after confirmation, loads the data from the file and displays it
         System.out.println(ANSI_YELLOW + "Are you sure want to overwrite the existing data?\nEnter " + ANSI_RED + "Y" + ANSI_YELLOW + " to confirm or anything else to abort: " + ANSI_RESET);
         if (!input.next().equalsIgnoreCase("Y")) {
             System.out.print(ANSI_RED + "Aborted." + ANSI_RESET);
@@ -322,7 +319,7 @@ public class FoodiesFave extends Application {
     }
 
     public static ArrayList<String> searchCustomerSelector(String name) {
-        //searches for a customer in the queues
+        //searches for a customer in the queues using the searchCustomer method and returns the results in an arraylist
         ArrayList<String> foundCustomers = new ArrayList<>();
         if (queue1.searchCustomer(name) != null) {
             foundCustomers.add("Results from queue 1 :\n" + queue1.searchCustomer(name));
@@ -340,6 +337,7 @@ public class FoodiesFave extends Application {
     }
 
     private static String[] mergeQueues() {
+        //merges all the queues into one array
         String[] allCustomers = new String[queue1.length(false) + queue2.length(false) + queue3.length(false)];
         for (int i = 0; i < queue1.length(false); i++) {
             if (!Objects.equals(queue1.returnIndex(i), "")) {

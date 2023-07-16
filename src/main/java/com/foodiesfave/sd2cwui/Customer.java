@@ -6,25 +6,17 @@ public class Customer {
     private final int burgers;
 
     public Customer(String inputFName, String inputSName, int inputBurgers) {
+        //constructor
         this.fName = inputFName;
         this.sName = inputSName;
         this.burgers = inputBurgers;
     }
 
-    @Override
-    public String toString() {
-        return this.fName + "\n" + this.sName + "\n" + this.burgers;
-    }
+    public String toString() { return this.fName + "\n" + this.sName + "\n" + this.burgers; }
 
-    public int getBurgers() {
-        return this.burgers;
-    }
+    public int getBurgers() { return this.burgers; }
 
-    public String getFName() {
-        return this.fName;
-    }
+    public String getFName() { return this.fName; }
 
-    public String getSName() {
-        return this.sName;
-    }
+    public String getSName() { return this.sName; }
 }

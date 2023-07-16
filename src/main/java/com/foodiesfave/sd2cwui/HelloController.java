@@ -52,7 +52,7 @@ public class HelloController extends FoodiesFave implements InitializeUI {
 
     @FXML
     void searchButtonClick() {
-        //searches for a customer by name
+        //searches for a customer by name, and displays the results
         String searchName = searchField.getText().toLowerCase();
         StringBuilder output = new StringBuilder();
         ArrayList<String> results = searchCustomerSelector(searchName);
@@ -65,7 +65,11 @@ public class HelloController extends FoodiesFave implements InitializeUI {
                 output.append(results.get(index)).append("\n");
                 index++;
             }
-            searchResults.setText(output.toString());
+            if (output.toString().isEmpty()) {
+                searchResults.setText("No results found");
+            } else {
+                searchResults.setText("Search results for " + searchName + ":\n\n" + output);
+            }
         }
     }
 
