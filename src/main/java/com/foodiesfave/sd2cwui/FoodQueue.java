@@ -64,7 +64,7 @@ public class FoodQueue {
             System.out.println(FoodiesFave.ANSI_GREEN + "Customer " + this.queue[index].getFName() + " removed from " + this.queueName + FoodiesFave.ANSI_RESET);
             this.queue[index] = null;
             this.reOrder();
-            if (!FoodiesFave.waitingQueue.isEmpty()){
+            if (!FoodiesFave.waitingQueue.isEmpty() && !this.queueName.equals("Waiting Queue")){
                 this.queue[this.length(false)-1] = FoodiesFave.waitingQueue.queue[0];
                 FoodiesFave.waitingQueue.queue[0] = null;
                 FoodiesFave.waitingQueue.reOrder();

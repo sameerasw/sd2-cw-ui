@@ -12,6 +12,8 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class FoodiesFave extends Application {
     static FoodQueue queue1 = new FoodQueue(2, "Queue 1");
     static FoodQueue queue2 = new FoodQueue(3 , "Queue 2");
@@ -28,7 +30,7 @@ public class FoodiesFave extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FoodiesFave.class.getResource("foodiesfave-gui.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+       Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Foodies Fave - Cashiers");
         stage.setScene(scene);
         stage.getIcons().add(new Image("file:src/main/resources/com/foodiesfave/icons/burger.png"));
@@ -38,7 +40,7 @@ public class FoodiesFave extends Application {
     private static volatile boolean javaFxLaunched = false;
     // Launches the JavaFX application and keeps its thread allowing to re-launch after closing (fix for issue #1) https://stackoverflow.com/questions/24320014/how-to-call-launch-more-than-once-in-java/61771424#61771424
 
-    public static void launchGUI() {
+    public static void launchGUI() throws InterruptedException {
         if (!javaFxLaunched) { // First time
             Platform.setImplicitExit(false);
             new Thread(()->Application.launch(FoodiesFave.class)).start();
@@ -54,9 +56,11 @@ public class FoodiesFave extends Application {
                 }
             });
         }
+        sleep(1000); //wait for exceptions to be thrown before the menu is displayed
+        System.out.println(ANSI_GREEN + "GUI launched" + ANSI_RESET);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         boolean continueProgram = true;
         Scanner input = new Scanner(System.in);
         while (continueProgram) {
@@ -178,12 +182,13 @@ public class FoodiesFave extends Application {
 
     public static void removeCustomer(Scanner input) {
         //removes a served customer from the queue
-        int cashier = selectItem(input, "cashier(1,2,3)");
-        int index = selectItem(input, "location(1,2,3,4,5)");
+        int cashier = selectItem(input, "cashier(1,2,3 and 4 for the waiting queue)");
+        int index = selectItem(input, "location(1,2,3,4,...)");
         switch (cashier) {
             case 1 -> queue1.removeCustomer(index - 1);
             case 2 -> queue2.removeCustomer(index - 1);
             case 3 -> queue3.removeCustomer(index - 1);
+            case 4 -> waitingQueue.removeCustomer(index - 1);
             default -> System.out.println(ANSI_RED + "Invalid queue" + ANSI_RESET);
         }
     }
